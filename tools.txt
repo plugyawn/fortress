@@ -1,0 +1,11 @@
+python train_grpo.py \
+    --data_dir /path/to/data \
+    --symbols BTCUSDT ETHUSDT \
+    --train_start 2022-01-01 \
+    --train_end 2022-12-31 \
+    --test_start 2023-01-01 \
+    --test_end 2023-12-31 \
+    --output_dir training_output \
+    --epochs 50 \
+    --batch_size 64 \
+    --learning_rate 0.0001 \

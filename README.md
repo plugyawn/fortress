@@ -7,10 +7,5 @@
 <a href = "github.com/plugyawn"><img width="800px" src= "https://github.com/user-attachments/assets/bd41262d-7919-47eb-9013-c161968a4410"></a>
 </div>
 
-# Fortress
-## Advanced Cryptocurrency Trading and Backtesting Framework
-
-A professional-grade cryptocurrency trading and backtesting framework built with Python, designed for developing, testing, and deploying trading strategies using reinforcement learning and large language models.
-
 -----------------------------------------
-[![code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)![Compatibility](https://img.shields.io/badge/compatible%20with-python3.9.x-blue.svg)
+[![code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)![Compatibility](https://img.shields.io/badge/compatible%20with-python3.6.x-blue.svg)

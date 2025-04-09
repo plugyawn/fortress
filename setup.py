@@ -1,33 +1,29 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="fortress",
+    name="crypto_backtester",
     version="0.1.0",
-    description="Advanced cryptocurrency backtesting and trading framework",
-    author="",
-    author_email="",
     packages=find_packages(),
     install_requires=[
         "numpy",
         "pandas",
-        "matplotlib",
         "gymnasium",
         "pandas-ta",
         "python-binance",
-        "torch",
-        "transformers",
-        "tqdm",
+        "requests",
     ],
+    description="A flexible cryptocurrency backtesting framework",
+    author="CryptoBacktester Team",
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Financial and Insurance Industry",
-        "License :: OSI Approved :: MIT License",
-        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3",
         "Topic :: Office/Business :: Financial :: Investment",
     ],
+    python_requires=">=3.7",
     entry_points={
         'console_scripts': [
-            'fortress-cli=fortress.cli:main',
+            'crypto-backtest=crypto_backtester.cli:main',
         ],
     },
 ) 

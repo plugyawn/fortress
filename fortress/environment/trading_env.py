@@ -9,14 +9,14 @@ import gymnasium as gym
 from gymnasium import spaces
 from typing import Dict, List, Tuple, Any, Optional
 
-from fortress.data.fetcher import fetch_binance_data
-from fortress.indicators.technical import add_indicators
-from fortress.metrics.performance import (
+from crypto_backtester.data.fetcher import fetch_binance_data
+from crypto_backtester.indicators.technical import add_indicators
+from crypto_backtester.metrics.performance import (
     calculate_sortino_ratio, 
     calculate_sharpe_ratio, 
     calculate_max_drawdown
 )
-from fortress.utils.helpers import (
+from crypto_backtester.utils.helpers import (
     estimate_periods_per_year,
     validate_config,
     format_state_summary
