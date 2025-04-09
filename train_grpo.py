@@ -14,6 +14,7 @@ from typing import Dict, Any
 
 from crypto_backtester.training.grpo_trainer import TrainingConfig, create_default_training_pipeline
 from crypto_backtester.agents.ppo_agent import PPOAgent
+from crypto_backtester.data.data_loader import CryptoDataLoader
 
 # Configure logging
 def setup_logging(log_dir: str) -> None:
@@ -138,6 +139,29 @@ def create_config_from_args(args: argparse.Namespace) -> Dict[str, Any]:
     }
     return config_overrides
 
+def validate_data_availability(data_loader: CryptoDataLoader, symbols: list, 
+                             train_start: str, train_end: str,
+                             test_start: str, test_end: str) -> None:
+    """Validate that data is available for the specified symbols and date ranges."""
+    available_symbols = data_loader.get_available_symbols()
+    missing_symbols = [s for s in symbols if s.upper() not in available_symbols]
+    if missing_symbols:
+        raise ValueError(f"Data not available for symbols: {missing_symbols}")
+        
+    for symbol in symbols:
+        start_date, end_date = data_loader.get_data_range(symbol)
+        train_start_dt = datetime.strptime(train_start, "%Y-%m-%d")
+        train_end_dt = datetime.strptime(train_end, "%Y-%m-%d")
+        test_start_dt = datetime.strptime(test_start, "%Y-%m-%d")
+        test_end_dt = datetime.strptime(test_end, "%Y-%m-%d")
+        
+        if train_start_dt < start_date:
+            raise ValueError(f"Training start date {train_start} is before available data for {symbol}")
+        if test_end_dt > end_date:
+            raise ValueError(f"Test end date {test_end} is after available data for {symbol}")
+            
+        logging.info(f"Data range for {symbol}: {start_date} to {end_date}")
+
 def main():
     """Main training function."""
     # Parse arguments
@@ -156,6 +180,19 @@ def main():
     logging.info(f"Arguments: {args}")
     
     try:
+        # Initialize data loader
+        data_loader = CryptoDataLoader(args.data_dir)
+        
+        # Validate data availability
+        validate_data_availability(
+            data_loader, 
+            args.symbols,
+            args.train_start,
+            args.train_end,
+            args.test_start,
+            args.test_end
+        )
+        
         # Create configuration
         config_overrides = create_config_from_args(args)
         
@@ -179,8 +216,7 @@ def main():
         
         # Calculate total training steps
         # This is a rough estimate based on data size and epochs
-        import pandas as pd
-        sample_df = pd.read_csv(os.path.join(args.data_dir, f"{args.symbols[0]}.csv"))
+        sample_df = data_loader.load_symbol_data(args.symbols[0], args.train_start, args.train_end)
         steps_per_epoch = len(sample_df) - args.window_size
         total_steps = steps_per_epoch * args.epochs * len(args.symbols)
         
