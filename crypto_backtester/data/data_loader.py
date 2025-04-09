@@ -156,4 +156,4 @@ class CryptoDataLoader:
             Tuple of (start_date, end_date)
         """
         df = self.load_symbol_data(symbol)
-        return df.index.min(), df.index.max() 
+        return df.index.min(), df.index.max()
