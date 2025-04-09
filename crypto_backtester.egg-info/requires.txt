@@ -1,6 +1,0 @@
-numpy
-pandas
-gymnasium
-pandas-ta
-python-binance
-requests

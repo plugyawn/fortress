@@ -1,0 +1,9 @@
+numpy
+pandas
+matplotlib
+gymnasium
+pandas-ta
+python-binance
+torch
+transformers
+tqdm

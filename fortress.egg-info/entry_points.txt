@@ -1,0 +1,2 @@
+[console_scripts]
+fortress-cli = fortress.cli:main

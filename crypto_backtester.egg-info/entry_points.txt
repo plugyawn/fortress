@@ -1,2 +1,0 @@
-[console_scripts]
-crypto-backtest = crypto_backtester.cli:main
